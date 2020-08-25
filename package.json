@@ -3,22 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0-0"
+    "@babel/runtime-corejs2": "^7.11.2",
+    "@cubejs-client/core": "0.9.0",
+    "@cubejs-client/vue": "0.9.0",
+    "autoprefixer": "^9.8.6",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "laue": "0.2.1",
+    "moment": "2.24.0",
+    "vue": "^2.5.22",
+    "vue-style-loader": "^4.1.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0-0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0"
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "@vue/babel-preset-app": "^4.5.4",
+    "@vue/cli-plugin-babel": "^4.5.4",
+    "@vue/cli-plugin-eslint": "3.6.0",
+    "@vue/cli-service": "3.6.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.1.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.44.1"
   },
   "eslintConfig": {
     "root": true,
@@ -26,17 +38,24 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
+      "plugin:vue/essential",
       "eslint:recommended"
     ],
+    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
-    },
-    "rules": {}
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not dead"
-  ]
+    "not ie <= 8"
+  ],
+  "keywords": [],
+  "description": ""
 }
