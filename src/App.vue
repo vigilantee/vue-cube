@@ -1,8 +1,12 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <select v-model="selected">
-        <option v-for="granular in granularity" :value="granular" v-bind:key="granular.value">{{ granular.text }}</option>
+      <select v-model="selected" id="granularitySelect">
+        <option
+          v-for="granular in granularity"
+          :value="granular"
+          v-bind:key="granular.value"
+        >{{ granular.text }}</option>
       </select>
     </div>
     <br />
@@ -44,9 +48,9 @@ export default {
     QueryBuilder,
   },
   data() {
-    return {
+    let selected = { value: 2, text: "day" };
+    const dataObj = {
       cubejsApi,
-      selected: { value: 2, text: "day" },
       granularity: [
         { value: 1, text: "hour" },
         { value: 2, text: "day" },
@@ -66,7 +70,7 @@ export default {
         timeDimensions: [
           {
             dimension: "TabSalesInvoice.creation",
-            granularity: "day",
+            granularity: selected?.text,
             // dateRange: dateRange ? dateRange : [startDate, endDate],
           },
         ],
@@ -79,6 +83,7 @@ export default {
         ],
       },
     };
+    return { ...dataObj, selected };
   },
 };
 </script>
