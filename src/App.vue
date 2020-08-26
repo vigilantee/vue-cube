@@ -1,12 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <select v-model="granularity">
-        <option
-          v-for="granular in granularity"
-          :value="granular.text"
-          v-bind:key="granular.value"
-        >{{ granular.text }}</option>
+      <select v-model="selected">
+        <option v-for="granular in granularity" :value="granular" v-bind:key="granular.value">{{ granular.text }}</option>
       </select>
     </div>
     <br />
@@ -50,6 +46,7 @@ export default {
   data() {
     return {
       cubejsApi,
+      selected: { value: 2, text: "day" },
       granularity: [
         { value: 1, text: "hour" },
         { value: 2, text: "day" },
