@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     dateFormatter: function (value) {
+      console.log("aaaaaa", this.resultSet);
       return moment(value).format("MMM YY");
     },
   },

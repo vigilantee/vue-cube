@@ -1,49 +1,23 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-4">
-        <query-builder :cubejs-api="cubejsApi" :query="usersQuery">
-          <template v-slot="{ loading, resultSet }">
-            <Chart title="Total Users" type="number" :loading="loading" :result-set="resultSet"/>
-          </template>
-        </query-builder>
-      </div>
-      <div class="col-sm-4">
-        <query-builder :cubejs-api="cubejsApi" :query="totalOrdersQuery">
-          <template v-slot="{ loading, resultSet }">
-            <Chart title="Total Orders" type="number" :loading="loading" :result-set="resultSet"/>
-          </template>
-        </query-builder>
-      </div>
-      <div class="col-sm-4">
-        <query-builder :cubejs-api="cubejsApi" :query="shippedOrdersQuery">
-          <template v-slot="{ loading, resultSet }">
-            <Chart title="Shipped Users" type="number" :loading="loading" :result-set="resultSet"/>
-          </template>
-        </query-builder>
-      </div>
+      <select v-model="granularity">
+        <option
+          v-for="granular in granularity"
+          :value="granular.text"
+          v-bind:key="granular.value"
+        >{{ granular.text }}</option>
+      </select>
     </div>
-    <br>
-    <br>
+    <br />
+    <br />
     <div class="row">
       <div class="col-sm-6">
-        <query-builder :cubejs-api="cubejsApi" :query="lineQuery">
+        <query-builder :cubejs-api="cubejsApi" :query="tabsalesQuery">
           <template v-slot="{ loading, resultSet }">
-            <Chart
-              title="New Users Over Time"
+            <LineChart
+              title="Tab Sales Query"
               type="line"
-              :loading="loading"
-              :result-set="resultSet"
-            />
-          </template>
-        </query-builder>
-      </div>
-      <div class="col-sm-6">
-        <query-builder :cubejs-api="cubejsApi" :query="barQuery">
-          <template v-slot="{ loading, resultSet }">
-            <Chart
-              title="Orders by Status Over time"
-              type="stackedBar"
               :loading="loading"
               :result-set="resultSet"
             />
@@ -58,57 +32,57 @@
 import cubejs from "@cubejs-client/core";
 import { QueryBuilder } from "@cubejs-client/vue";
 
-import Chart from "./components/Chart";
+import LineChart from "./components/Chart";
+
+const API_URL = "http://localhost:4000"; // change to your actual endpoint
 
 const cubejsApi = cubejs(
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTQ2NjY4OTR9.0fdi5cuDZ2t3OSrPOMoc3B1_pwhnWj4ZmM3FHEX7Aus",
-  { apiUrl: "https://ecom.cubecloudapp.dev/cubejs-api/v1" }
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc4Mzk2MDYsImV4cCI6MTU5NzkyNjAwNn0.eyS33ppbBdPZsb9K7ymkhKrHS-l2x_hf25lXFVk5m30",
+  { apiUrl: API_URL + "/cubejs-api/v1" }
 );
 
 export default {
   name: "App",
   components: {
-    Chart,
-    QueryBuilder
+    LineChart,
+    QueryBuilder,
   },
   data() {
     return {
       cubejsApi,
-      usersQuery: { measures: ["Users.count"] },
-      totalOrdersQuery: { measures: ["Orders.count"] },
-      shippedOrdersQuery: {
-        measures: ["Orders.count"],
+      granularity: [
+        { value: 1, text: "hour" },
+        { value: 2, text: "day" },
+        { value: 3, text: "week" },
+        { value: 4, text: "month" },
+        { value: 5, text: "year" },
+      ],
+      tabsalesQuery: {
+        order: {},
+        measures: [
+          "TabSalesInvoice.total",
+          // "TabSalesInvoice.totalSalesMonthly",
+          "TabSalesInvoice.outstandingAmount",
+          "TabSalesInvoice.totalQty",
+          "TabSalesInvoice.discountAmount",
+        ],
+        timeDimensions: [
+          {
+            dimension: "TabSalesInvoice.creation",
+            granularity: "day",
+            // dateRange: dateRange ? dateRange : [startDate, endDate],
+          },
+        ],
         filters: [
           {
-            dimension: "Orders.status",
+            dimension: "TabTerritory.name",
             operator: "equals",
-            values: ["shipped"]
-          }
-        ]
+            values: ["Northern California"],
+          },
+        ],
       },
-      lineQuery: {
-        measures: ["Users.count"],
-        timeDimensions: [
-          {
-            dimension: "Users.createdAt",
-            dateRange: ["2019-01-01", "2020-12-31"],
-            granularity: "month"
-          }
-        ]
-      },
-      barQuery: {
-        measures: ["Orders.count"],
-        dimensions: ["Orders.status"],
-        timeDimensions: [
-          {
-            dimension: "Orders.createdAt",
-            dateRange: ["2019-01-01", "2020-12-31"],
-            granularity: "month"
-          }
-        ]
-      }
     };
-  }
+  },
 };
 </script>
 
