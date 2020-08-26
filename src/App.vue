@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <select v-model="selected" id="granularitySelect">
+      <select v-model="selected" id="granularitySelect" :key="selected.value">
         <option
           v-for="granular in granularity"
           :value="granular"
@@ -13,7 +13,7 @@
     <br />
     <div class="row">
       <div class="col-sm-6">
-        <query-builder :cubejs-api="cubejsApi" :query="tabsalesQuery">
+        <query-builder :cubejs-api="cubejsApi" :query="tabsalesQuery" :key="selected.value">
           <template v-slot="{ loading, resultSet }">
             <LineChart
               title="Tab Sales Query"
@@ -48,9 +48,9 @@ export default {
     QueryBuilder,
   },
   data() {
-    let selected = { value: 2, text: "day" };
-    const dataObj = {
+    return {
       cubejsApi,
+      selected: { value: 2, text: "day" },
       granularity: [
         { value: 1, text: "hour" },
         { value: 2, text: "day" },
@@ -58,7 +58,11 @@ export default {
         { value: 4, text: "month" },
         { value: 5, text: "year" },
       ],
-      tabsalesQuery: {
+    };
+  },
+  computed: {
+    tabsalesQuery() {
+      return {
         order: {},
         measures: [
           "TabSalesInvoice.total",
@@ -70,7 +74,7 @@ export default {
         timeDimensions: [
           {
             dimension: "TabSalesInvoice.creation",
-            granularity: selected?.text,
+            granularity: this.selected.text,
             // dateRange: dateRange ? dateRange : [startDate, endDate],
           },
         ],
@@ -81,10 +85,14 @@ export default {
             values: ["Northern California"],
           },
         ],
-      },
-    };
-    return { ...dataObj, selected };
+      };
+    },
   },
+  // watch: {
+  //   selected: function(val) {
+  //     console.log("val.....", this.selected, val);
+  //   }
+  // }
 };
 </script>
 
