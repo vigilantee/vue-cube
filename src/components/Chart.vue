@@ -10,10 +10,12 @@
         </div>
         <h1
           v-if="!loading && type === 'number'"
-          height="300"
+          height="400"
         >{{ parseFloat(values[0][metrics[0]]).toLocaleString() }}</h1>
         <line-chart v-if="!loading && type === 'line'" :values="values" :metrics="metrics" />
         <bar-chart v-if="!loading && type === 'stackedBar'" :values="values" :metrics="metrics" />
+        <pie-chart v-if="!loading && type === 'pieChart'" :values="values" :metrics="metrics" />
+        <pie-chart-territory v-if="!loading && type === 'pieChartTerritory'" :values="values" :metrics="metrics" />
       </div>
     </div>
   </div>
@@ -23,11 +25,16 @@
 import moment from "moment";
 import LineChart from "./LineChart";
 import BarChart from "./BarChart";
+import PieChart from "./PieChart";
+import PieChartTerritory from "./PieChartTerritory";
+
 
 export default {
   components: {
     LineChart,
     BarChart,
+    PieChart,
+    PieChartTerritory
   },
   name: "Chart",
   props: {
