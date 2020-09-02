@@ -2,7 +2,7 @@
   import { Pie } from 'vue-chartjs'
 
   export default {
-    name:"PieChartTerritory",
+    name:"PieChartCustomerGroup",
     props: {
       values: Array,
       metrics: Array,
@@ -39,9 +39,7 @@
       }
     },
     mounted () {
-
-      console.log("pie territory data...",this.values);
-      this.renderChart(this.chartData, this.options);
+      this.renderChart(this.chartData, this.options)
     }
   }
 </script>

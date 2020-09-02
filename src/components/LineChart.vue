@@ -48,6 +48,7 @@ export default {
   import moment from "moment";
 
   export default {
+    name:"LineChart",
     props: {
       values: Array,
       metrics: Array,

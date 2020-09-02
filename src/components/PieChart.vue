@@ -9,20 +9,20 @@
       metrics: Array,
     },
     extends: Pie,
-    computed:{
-      color:function(){
-        var letters = '0123456789ABCDEF';
-        var colorArray=[];
-        for(var j=0;j<5;j++){
-          var col = '#';
-          for (var i = 0; i < 6; i++) {
-          col += letters[Math.floor(Math.random() * 16)];
-          }
-          colorArray.push(col);
-        }
-        return colorArray;
-      }
-    },
+    // computed:{
+    //   color:function(){
+    //     var letters = '0123456789ABCDEF';
+    //     var colorArray=[];
+    //     for(var j=0;j<5;j++){
+    //       var col = '#';
+    //       for (var i = 0; i < 6; i++) {
+    //       col += letters[Math.floor(Math.random() * 16)];
+    //       }
+    //       colorArray.push(col);
+    //     }
+    //     return colorArray;
+    //   }
+    // },
     data () {
       return {
         chartData: {
