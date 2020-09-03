@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4> 5 Task</h4>
     hello from TabSalesAverageInvoiceAmount 
     </br>
     <h1>{{this.values[0]["TabSalesInvoice.AverageInvoiceAmount"]}}</h1>

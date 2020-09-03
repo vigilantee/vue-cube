@@ -14,6 +14,8 @@
         >{{ parseFloat(values[0][metrics[0]]).toLocaleString() }}</h1>
         <line-chart v-if="!loading && type === 'line'" :values="values" :metrics="metrics" />
         <bar-chart v-if="!loading && type === 'stackedBar'" :values="values" :metrics="metrics" />
+        <tab-customer-bar-chart-by-new-customer v-if="!loading && type === 'TabCustomerBarChartByNewCustomer'" :values="values" :metrics="metrics" />
+        <tab-sales-invoice-bar-chart-by-sales-partner v-if="!loading && type === 'TabSalesInvoiceBarChartBySalesPartner'" :values="values" :metrics="metrics" />
         <pie-chart v-if="!loading && type === 'pieChart'" :values="values" :metrics="metrics" />
         <pie-chart-territory v-if="!loading && type === 'pieChartTerritory'" :values="values" :metrics="metrics" />
         <pie-chart-customer-group v-if="!loading && type === 'pieChartCustomerGroup'" :values="values" :metrics="metrics" />
@@ -25,15 +27,18 @@
         <tab-sales-invoice-item-horizontal-bar-chart-by-item-group v-if="!loading && type === 'TabSalesInvoiceItemHorizontalBarChartByItemGroup'" :values="values" :metrics="metrics" />
         <tab-purchase-invoice-horizontal-bar-chart-by-supplier v-if="!loading && type === 'TabPurchaseInvoiceHorizontalBarChartBySupplier'" :values="values" :metrics="metrics" />
         <pie-sales-invoice-by-status v-if="!loading && type === 'PieSalesInvoiceByStatus'" :values="values" :metrics="metrics" />
+        <tab-bin-item-code-wise v-if="!loading && type === 'TabBinItemCodeWise'" :values="values" :metrics="metrics" />
       </div>
     </div>
   </div>
-</template>s
+</template>
 
 <script>
 import moment from "moment";
 import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
+import TabSalesInvoiceBarChartBySalesPartner from "../components/TabSalesInvoiceBarChartBySalesPartner";
+import TabCustomerBarChartByNewCustomer from "../components/TabCustomerBarChartByNewCustomer";
 import PieChart from "../components/PieChart";
 import PieChartTerritory from "../components/PieChartTerritory";
 import PieChartCustomerGroup from "../components/PieChartCustomerGroup";
@@ -45,12 +50,15 @@ import TabSalesInvoiceItemHorizontalBarChartByItemName from "../components/TabSa
 import TabSalesInvoiceItemHorizontalBarChartByItemGroup from "../components/TabSalesInvoiceItemHorizontalBarChartByItemGroup";
 import TabPurchaseInvoiceHorizontalBarChartBySupplier from "../components/TabPurchaseInvoiceHorizontalBarChartBySupplier";
 import PieSalesInvoiceByStatus from "../components/PieSalesInvoiceByStatus";
+import TabBinItemCodeWise from "../components/TabBinItemCodeWise";
 
 
 export default {
   components: {
     LineChart,
     BarChart,
+    TabCustomerBarChartByNewCustomer,
+    TabSalesInvoiceBarChartBySalesPartner,
     PieChart,
     PieChartTerritory,
     PieChartCustomerGroup,
@@ -61,7 +69,8 @@ export default {
     TabSalesInvoiceItemHorizontalBarChartByItemGroup,
     TabPurchaseInvoiceHorizontalBarChartBySupplier,
     PieSalesInvoiceByStatus,
-    TabSalesInvoiceNetTotal
+    TabSalesInvoiceNetTotal,
+    TabBinItemCodeWise
   },
   name: "Chart",
   props: {
@@ -89,15 +98,6 @@ export default {
   },
   data() {
     return {
-      colors: [
-        "#7DB3FF",
-        "#49457B",
-        "#FF7C78",
-        "#FED3D0",
-        "#6F76D9",
-        "#9ADFB4",
-        "#2E7987",
-      ],
     };
   },
 };

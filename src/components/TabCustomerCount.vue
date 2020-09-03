@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4> 10 Task</h4>
     hello from TabCustomerCount 
     </br>
     <h1>{{this.values[0]["TabCustomer.count"]}}</h1>

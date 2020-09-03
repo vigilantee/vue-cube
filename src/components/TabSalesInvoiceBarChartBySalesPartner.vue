@@ -5,7 +5,7 @@
 
 
   export default {
-    name:"TabCustomerBarChartByNewCustomer",
+    name:"TabSalesInvoiceBarChartBySalesPartner",
     props: {
     values: Array,
     metrics: Array,
@@ -14,14 +14,14 @@
     data() {
       return {
         chartData: {
-          labels: this.values.map(value=>moment(value.category).format('YYYY-MM-DD')),
+          labels: this.values.map(value=>value.x),
           datasets: [{
             label: 'Bar Chart',
             borderWidth: 1,
             backgroundColor: colour,
             borderColor: colour,
             pointBorderColor: '#2554FF',
-            data:this.values.map(value=>value["TabCustomer.count"])
+            data:this.values.map(value=>value["TabSalesInvoice.netTotal"])
           }]
         },
         options: {
