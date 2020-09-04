@@ -60,8 +60,8 @@ export default {
           labels: this.values.map(value=>moment(value.category).format('YYYY-MM-DD')),
           datasets: [
             {
-              label: 'TabSalesInvoice.totalQty',
-              data: this.values.map(value=>value["TabSalesInvoice.totalQty"]),
+              label: 'TabSalesInvoice.netTotal',
+              data: this.values.map(value=>value["TabSalesInvoice.netTotal"]),
               fill: false,
               borderColor: '#2554FF',
               backgroundColor: '#2554FF',

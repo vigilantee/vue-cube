@@ -1,6 +1,7 @@
 <template>
   <div>
     <GChart
+      :settings="{ packages: ['corechart', 'table'] }"
       type="Table"
       :data="chartData"
       :options="chartOptions"
@@ -11,7 +12,7 @@
 <script>
 import { GChart } from "vue-google-charts";
 export default {
-  name: "TabBinItemCodeWise",
+  name: "TabBinHandWareHouseWise",
   components: {
     GChart
   },
@@ -23,8 +24,9 @@ export default {
     return {
       // Array will be automatically processed with visualization.arrayToDataTable function
       chartData:[
-          ["ItemCode", "ActualQuantity"],
+          ["Ware House", "Actual Quantity"],
           ...this.values.map(value=>[value.category,value["TabBin.actualQty"]])
+  
       ],
       chartOptions: {
         chart: {
@@ -36,8 +38,6 @@ export default {
     };
   },
   mounted (){
-      // console.log("aaya data",this.values[8].category),
-      // console.log("aaya data",this.values[8]["TabBin.actualQty"]),
       // console.log(this.values.map(value=>[value.category,value["TabBin.actualQty"]]))
   }
 };

@@ -1,9 +1,9 @@
 const tabsalesQuery = (selected) => {
-    console.log("selected is,......", selected);
+    console.log("selected is,......", selected.text);
     return ({
         order: {},
         measures: [
-            "TabSalesInvoice.total",
+            "TabSalesInvoice.netTotal",
             // "TabSalesInvoice.totalSalesMonthly",
             "TabSalesInvoice.outstandingAmount",
             "TabSalesInvoice.totalQty",
@@ -12,7 +12,7 @@ const tabsalesQuery = (selected) => {
         timeDimensions: [
             {
                 dimension: "TabSalesInvoice.creation",
-                granularity: selected? selected.text: "day",
+                granularity: selected.text,
                 dateRange: "This year",
                 // dateRange: dateRange ? dateRange : [startDate, endDate],
             },
@@ -25,6 +25,18 @@ const tabsalesQuery = (selected) => {
             },
         ],
     });
+}
+
+const GuageChart={
+    measures: ["TabSalesInvoice.trueNetTotal"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {},
+    filters: [],
+
 }
 const tabBinQuery = {
     "measures": [
@@ -39,8 +51,245 @@ const tabBinQuery = {
     ],
     "filters": []
 }
+
+const tabBinPieQuery = {
+    measures: ["TabBin.actualQty"],
+    timeDimensions: [
+        {
+            dimension: "TabBin.creation",
+        },
+    ],
+    order: {
+        "TabBin.warehouse": "desc",
+    },
+    dimensions: ["TabBin.warehouse"],
+    filters: [],
+}
+const tabBinPieTerritoryQuery = {
+    measures: ["TabSalesInvoice.netTotal"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {
+        "TabSalesInvoice.netTotal": "asc",
+        "TabSalesInvoice.territory": "asc",
+    },
+    dimensions: ["TabSalesInvoice.territory"],
+    filters: [],
+}
+const TabSalesInvoiceCustomerGroup = {
+    measures: ["TabSalesInvoice.netTotal"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {
+        "TabSalesInvoice.total": "desc",
+    },
+    dimensions: ["TabSalesInvoice.customerGroup"],
+    filters: [],
+}
+const PieSalesInvoiceByStatus = {
+    measures: ["TabSalesInvoice.netTotal"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {
+        "TabSalesInvoice.netTotal": "desc",
+    },
+    dimensions: ["TabSalesInvoice.status"],
+    filters: [],
+}
+
+const TabSalesAverageInvoiceAmount = {
+    measures: ["TabSalesInvoice.AverageInvoiceAmount"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {},
+    filters: [],
+}
+
+const TabSalesTotalInvoiceCount = {
+    measures: ["TabSalesInvoice.trueCount"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {},
+    filters: [],
+}
+const TabCustomerCount = {
+    measures: ["TabCustomer.countName"],
+    timeDimensions: [
+        {
+            dimension: "TabCustomer.creation",
+        },
+    ],
+    order: {},
+    filters: [],
+}
+const TabSalesInvoiceNetTotal = {
+    measures: ["TabSalesInvoice.trueNetTotal"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {},
+    filters: [],
+}
+const TabSalesInvoiceItemUniqueItemCode = {
+    "measures": [
+        "TabSaleInvoiceItem.itemCodeCount"
+    ],
+    "timeDimensions": [
+        {
+            "dimension": "TabSaleInvoiceItem.creation"
+        }
+    ],
+    "order": {},
+    "filters": []
+}
+const TabSalesInvoiceItemHorizontalBarChartByItemName = {
+    measures: ["TabSaleInvoiceItem.amount"],
+    timeDimensions: [
+        {
+            dimension: "TabSaleInvoiceItem.creation",
+        },
+    ],
+    order: {
+        "TabSaleInvoiceItem.amount": "desc",
+    },
+    dimensions: ["TabSaleInvoiceItem.itemName"],
+    filters: [],
+    limit: 10,
+}
+const TabSalesInvoiceItemHorizontalBarChartByItemGroup = {
+    measures: ["TabSaleInvoiceItem.amount"],
+    timeDimensions: [
+        {
+            dimension: "TabSaleInvoiceItem.creation",
+        },
+    ],
+    order: {
+        "TabSaleInvoiceItem.amount": "desc",
+    },
+    dimensions: ["TabSaleInvoiceItem.itemGroup"],
+    filters: [],
+}
+const TabPurchaseInvoiceHorizontalBarChartBySupplier = {
+    measures: ["TabPurchaseInvoice.netTotal"],
+    timeDimensions: [
+        {
+            dimension: "TabPurchaseInvoice.creation",
+        },
+    ],
+    order: {
+        "TabPurchaseInvoice.netTotal": "desc",
+    },
+    dimensions: ["TabPurchaseInvoice.supplier"],
+    filters: [],
+    limit: 10,
+}
+const TabCustomerBarChartByNewCustomer = {
+    measures: ["TabCustomer.count"],
+    timeDimensions: [
+        {
+            dimension: "TabCustomer.creation",
+            granularity: "month",
+        },
+    ],
+    order: {},
+    filters: [],
+}
+const TabSalesInvoiceBarChartBySalesPartner = {
+    measures: ["TabSalesInvoice.netTotal"],
+    timeDimensions: [
+        {
+            dimension: "TabSalesInvoice.creation",
+        },
+    ],
+    order: {
+        "TabSalesInvoice.netTotal": "desc",
+    },
+    dimensions: ["TabSalesInvoice.salesPartner"],
+    filters: [],
+}
+const TabBinItemCodeWise = {
+    measures: ["TabBin.actualQty"],
+    timeDimensions: [
+        {
+            dimension: "TabBin.creation",
+        },
+    ],
+    order: {
+        "TabBin.itemCode": "asc",
+    },
+    dimensions: ["TabBin.itemCode"],
+    filters: [],
+}
+const TabBinHandWareHouseWise = {
+    "measures": [
+        "TabBin.actualQty"
+    ],
+    "timeDimensions": [
+        {
+            "dimension": "TabBin.creation"
+        }
+    ],
+    "order": {
+        "TabBin.warehouse": "asc"
+    },
+    "dimensions": [
+        "TabBin.warehouse"
+    ],
+    "filters": []
+}
+const TabLeadByCityLocation = {
+    "measures": [
+        "TabLead.count"
+    ],
+    "timeDimensions": [
+        {
+            "dimension": "TabLead.creation"
+        }
+    ],
+    "order": {
+        "TabLead.city": "asc"
+    },
+    "dimensions": [
+        "TabLead.city"
+    ],
+    "filters": []
+}
 const QUERY = {
     tabsalesQuery: (selected) => tabsalesQuery(selected),
     tabBinQuery,
+    GuageChart,
+    tabBinPieQuery,
+    tabBinPieTerritoryQuery,
+    TabSalesInvoiceCustomerGroup,
+    PieSalesInvoiceByStatus,
+    TabSalesAverageInvoiceAmount,
+    TabCustomerCount,
+    TabSalesInvoiceNetTotal,
+    TabSalesInvoiceItemUniqueItemCode,
+    TabSalesInvoiceItemHorizontalBarChartByItemName,
+    TabSalesInvoiceItemHorizontalBarChartByItemGroup,
+    TabPurchaseInvoiceHorizontalBarChartBySupplier,
+    TabCustomerBarChartByNewCustomer,
+    TabSalesInvoiceBarChartBySalesPartner,
+    TabBinItemCodeWise,
+    TabBinHandWareHouseWise,
+    TabLeadByCityLocation
 };
 export default QUERY;

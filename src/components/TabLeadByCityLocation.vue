@@ -1,7 +1,8 @@
 <template>
   <div>
     <GChart
-      type="Table"
+      :settings="{ packages: ['corechart', 'geochart'] }"
+      type="GeoChart"
       :data="chartData"
       :options="chartOptions"
     />    
@@ -11,7 +12,7 @@
 <script>
 import { GChart } from "vue-google-charts";
 export default {
-  name: "TabBinItemCodeWise",
+  name: "TabLeadByCityLocation",
   components: {
     GChart
   },
@@ -23,8 +24,16 @@ export default {
     return {
       // Array will be automatically processed with visualization.arrayToDataTable function
       chartData:[
-          ["ItemCode", "ActualQuantity"],
-          ...this.values.map(value=>[value.category,value["TabBin.actualQty"]])
+          ['Country', 'Popularity'],
+          ['Germany', 200],
+          ['United States', 300],
+          ['Brazil', 400],
+          ['Canada', 500],
+          ['France', 600], 
+          ['RU', 700],
+          ["MUMBAI",340], 
+          ...this.values.map(value=>[value.category,value["TabLead.count"]])
+
       ],
       chartOptions: {
         chart: {
@@ -36,9 +45,7 @@ export default {
     };
   },
   mounted (){
-      // console.log("aaya data",this.values[8].category),
-      // console.log("aaya data",this.values[8]["TabBin.actualQty"]),
-      // console.log(this.values.map(value=>[value.category,value["TabBin.actualQty"]]))
+      console.log(this.values.map(value=>[value.category,value["TabLead.count"]]))
   }
 };
 </script>

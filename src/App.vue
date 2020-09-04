@@ -19,7 +19,7 @@
         <query-builder :cubejs-api="cubejsApi" :query="tabsalesQuery" :granularity="granularity">
           <template v-slot="{ loading, resultSet }">
             <LineChart
-              title="Tab Sales Query"
+              title="Tab Sales Query 9"
               type="line"
               :loading="loading"
               :result-set="resultSet"
@@ -185,6 +185,20 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
+        <query-builder :cubejs-api="cubejsApi" :query="TabSalesInvoiceItemUniqueItemCode">
+          <template v-slot="{loading, resultSet }">
+            <TabSalesInvoiceItemUniqueItemCode
+              title="Tab Sales Invoice Item Unique Item Code Query 11"
+              type="TabSalesInvoiceItemUniqueItemCode"
+              :loading="loading"
+              :result-set="resultSet"
+            />
+          </template>
+        </query-builder>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
         <query-builder
           :cubejs-api="cubejsApi"
           :query="TabSalesInvoiceItemHorizontalBarChartByItemName"
@@ -235,7 +249,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-6">
         <query-builder :cubejs-api="cubejsApi" :query="TabBinItemCodeWise">
           <template v-slot="{loading, resultSet }">
             <TabBinItemCodeWise
@@ -247,8 +261,47 @@
           </template>
         </query-builder>
       </div>
+      <div class="col-sm-6">
+        <query-builder :cubejs-api="cubejsApi" :query="TabBinHandWareHouseWise">
+          <template v-slot="{loading, resultSet }">
+            <TabBinHandWareHouseWise
+              title="Tab Bin hand ware Wise Query 16"
+              type="TabBinHandWareHouseWise"
+              :loading="loading"
+              :result-set="resultSet"
+            />
+          </template>
+        </query-builder>
+      </div>
     </div>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div class="row">
+      <div class="col-sm-12">
+        <query-builder :cubejs-api="cubejsApi" :query="TabLeadByCityLocation">
+          <template v-slot="{loading, resultSet }">
+            <TabLeadByCityLocation
+              title="TabLeadByCityLocation Query 18"
+              type="TabLeadByCityLocation"
+              :loading="loading"
+              :result-set="resultSet"
+            />
+          </template>
+        </query-builder>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <query-builder :cubejs-api="cubejsApi" :query="TabSalesInvoiceNetTotal">
+          <template v-slot="{loading, resultSet }">
+            <GuageChart
+              title="GuageChart Query 2"
+              type="GuageChart"
+              :loading="loading"
+              :result-set="resultSet"
+            />
+          </template>
+        </query-builder>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -267,11 +320,15 @@ import TabSalesAverageInvoiceAmount from "./view/Chart";
 import TabSalesTotalInvoiceCount from "./view/Chart";
 import TabCustomerCount from "./view/Chart";
 import TabSalesInvoiceNetTotal from "./view/Chart";
+import TabSalesInvoiceItemUniqueItemCode from "./view/Chart";
 import TabSalesInvoiceItemHorizontalBarChartByItemName from "./view/Chart";
 import TabSalesInvoiceItemHorizontalBarChartByItemGroup from "./view/Chart";
 import TabPurchaseInvoiceHorizontalBarChartBySupplier from "./view/Chart";
 import PieSalesInvoiceByStatus from "./view/Chart";
 import TabBinItemCodeWise from "./view/Chart";
+import TabBinHandWareHouseWise from "./view/Chart";
+import TabLeadByCityLocation from "./view/Chart";
+import GuageChart from "./view/Chart";
 import QUERY from "./components/Query";
 const API_URL = "http://localhost:4000"; // change to your actual endpoint
 
@@ -285,6 +342,7 @@ export default {
   components: {
     LineChart,
     BarChart,
+    GuageChart,
     TabCustomerBarChartByNewCustomer,
     TabSalesInvoiceBarChartBySalesPartner,
     PieChart,
@@ -295,11 +353,15 @@ export default {
     TabSalesAverageInvoiceAmount,
     TabCustomerCount,
     TabSalesInvoiceNetTotal,
+    TabSalesInvoiceItemUniqueItemCode,
     TabSalesInvoiceItemHorizontalBarChartByItemName,
     TabSalesInvoiceItemHorizontalBarChartByItemGroup,
     TabPurchaseInvoiceHorizontalBarChartBySupplier,
     TabBinItemCodeWise,
+    TabBinHandWareHouseWise,
+    TabLeadByCityLocation,
     QueryBuilder,
+    QUERY
   },
 
   data() {
@@ -313,179 +375,26 @@ export default {
         { value: 4, text: "month" },
         { value: 5, text: "year" },
       ],
-      tabsalesQuery: QUERY.tabsalesQuery(this.selected),
+      tabsalesQuery: QUERY.tabsalesQuery(selected),
       tabBinQuery: QUERY.tabBinQuery,
-      tabBinPieQuery: {
-        measures: ["TabBin.actualQty"],
-        timeDimensions: [
-          {
-            dimension: "TabBin.creation",
-          },
-        ],
-        order: {
-          "TabBin.warehouse": "desc",
-        },
-        dimensions: ["TabBin.warehouse"],
-        filters: [],
-      },
-      tabBinPieTerritoryQuery: {
-        measures: ["TabSalesInvoice.netTotal"],
-        timeDimensions: [
-          {
-            dimension: "TabSalesInvoice.creation",
-          },
-        ],
-        order: {
-          "TabSalesInvoice.netTotal": "asc",
-          "TabSalesInvoice.territory": "asc",
-        },
-        dimensions: ["TabSalesInvoice.territory"],
-        filters: [],
-      },
-      TabSalesInvoiceCustomerGroup: {
-        measures: ["TabSalesInvoice.netTotal"],
-        timeDimensions: [
-          {
-            dimension: "TabSalesInvoice.creation",
-          },
-        ],
-        order: {
-          "TabSalesInvoice.total": "desc",
-        },
-        dimensions: ["TabSalesInvoice.customerGroup"],
-        filters: [],
-      },
-      PieSalesInvoiceByStatus: {
-        measures: ["TabSalesInvoice.netTotal"],
-        timeDimensions: [
-          {
-            dimension: "TabSalesInvoice.creation",
-          },
-        ],
-        order: {
-          "TabSalesInvoice.netTotal": "desc",
-        },
-        dimensions: ["TabSalesInvoice.status"],
-        filters: [],
-      },
-      TabSalesAverageInvoiceAmount: {
-        measures: ["TabSalesInvoice.AverageInvoiceAmount"],
-        timeDimensions: [
-          {
-            dimension: "TabSalesInvoice.creation",
-          },
-        ],
-        order: {},
-        filters: [],
-      },
-      TabSalesTotalInvoiceCount: {
-        measures: ["TabSalesInvoice.trueCount"],
-        timeDimensions: [
-          {
-            dimension: "TabSalesInvoice.creation",
-          },
-        ],
-        order: {},
-        filters: [],
-      },
-      TabCustomerCount: {
-        measures: ["TabCustomer.count"],
-        timeDimensions: [
-          {
-            dimension: "TabCustomer.creation",
-          },
-        ],
-        order: {},
-        filters: [],
-      },
-      TabSalesInvoiceNetTotal: {
-        measures: ["TabSalesInvoice.trueNetTotal"],
-        timeDimensions: [
-          {
-            dimension: "TabSalesInvoice.creation",
-          },
-        ],
-        order: {},
-        filters: [],
-      },
-      TabSalesInvoiceItemHorizontalBarChartByItemName: {
-        measures: ["TabSaleInvoiceItem.amount"],
-        timeDimensions: [
-          {
-            dimension: "TabSaleInvoiceItem.creation",
-          },
-        ],
-        order: {
-          "TabSaleInvoiceItem.amount": "desc",
-        },
-        dimensions: ["TabSaleInvoiceItem.itemName"],
-        filters: [],
-        limit: 10,
-      },
-      TabSalesInvoiceItemHorizontalBarChartByItemGroup: {
-        measures: ["TabSaleInvoiceItem.amount"],
-        timeDimensions: [
-          {
-            dimension: "TabSaleInvoiceItem.creation",
-          },
-        ],
-        order: {
-          "TabSaleInvoiceItem.amount": "desc",
-        },
-        dimensions: ["TabSaleInvoiceItem.itemGroup"],
-        filters: [],
-      },
-      TabPurchaseInvoiceHorizontalBarChartBySupplier: {
-        measures: ["TabPurchaseInvoice.netTotal"],
-        timeDimensions: [
-          {
-            dimension: "TabPurchaseInvoice.creation",
-          },
-        ],
-        order: {
-          "TabPurchaseInvoice.netTotal": "desc",
-        },
-        dimensions: ["TabPurchaseInvoice.supplier"],
-        filters: [],
-        limit: 10,
-      },
-      TabCustomerBarChartByNewCustomer: {
-        measures: ["TabCustomer.count"],
-        timeDimensions: [
-          {
-            dimension: "TabCustomer.creation",
-            granularity: "month",
-          },
-        ],
-        order: {},
-        filters: [],
-      },
-      TabSalesInvoiceBarChartBySalesPartner: {
-        measures: ["TabSalesInvoice.netTotal"],
-        timeDimensions: [
-          {
-            dimension: "TabSalesInvoice.creation",
-          },
-        ],
-        order: {
-          "TabSalesInvoice.netTotal": "desc",
-        },
-        dimensions: ["TabSalesInvoice.salesPartner"],
-        filters: [],
-      },
-      TabBinItemCodeWise: {
-        measures: ["TabBin.actualQty"],
-        timeDimensions: [
-          {
-            dimension: "TabBin.creation",
-          },
-        ],
-        order: {
-          "TabBin.itemCode": "asc",
-        },
-        dimensions: ["TabBin.itemCode"],
-        filters: [],
-      },
+      tabBinPieQuery:QUERY.tabBinPieQuery,
+      tabBinPieTerritoryQuery:QUERY.tabBinPieTerritoryQuery,
+      TabSalesInvoiceCustomerGroup: QUERY.TabSalesInvoiceCustomerGroup,
+      PieSalesInvoiceByStatus:QUERY.PieSalesInvoiceByStatus,
+      TabSalesAverageInvoiceAmount:QUERY.TabSalesAverageInvoiceAmount,
+      TabSalesTotalInvoiceCount: QUERY.TabSalesTotalInvoiceCount,
+      TabCustomerCount: QUERY.TabCustomerCount,
+      TabSalesInvoiceNetTotal:QUERY.TabSalesInvoiceNetTotal,
+      TabSalesInvoiceItemUniqueItemCode:QUERY.TabSalesInvoiceItemUniqueItemCode,
+      TabSalesInvoiceItemHorizontalBarChartByItemName:QUERY.TabSalesInvoiceItemHorizontalBarChartByItemName,
+      TabSalesInvoiceItemHorizontalBarChartByItemGroup:QUERY.TabSalesInvoiceItemHorizontalBarChartByItemGroup,
+      TabPurchaseInvoiceHorizontalBarChartBySupplier:QUERY.TabPurchaseInvoiceHorizontalBarChartBySupplier,
+      TabCustomerBarChartByNewCustomer:QUERY.TabCustomerBarChartByNewCustomer,
+      TabSalesInvoiceBarChartBySalesPartner:QUERY.TabSalesInvoiceBarChartBySalesPartner,
+      TabBinItemCodeWise:QUERY.TabBinItemCodeWise,
+      TabBinHandWareHouseWise:QUERY.TabBinHandWareHouseWise,
+      TabLeadByCityLocation:QUERY.TabLeadByCityLocation,
+      GuageChart:QUERY.GuageChart
     };
     return { ...dataObj, selected };
   },
@@ -499,7 +408,6 @@ export default {
   },
 };
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 html {
   -webkit-font-smoothing: antialiased;

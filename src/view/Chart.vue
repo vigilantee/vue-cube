@@ -23,11 +23,15 @@
         <tab-sales-total-invoice-count v-if="!loading && type === 'TabSalesTotalInvoiceCount'" :values="values" :metrics="metrics" />
         <tab-customer-count v-if="!loading && type === 'TabCustomerCount'" :values="values" :metrics="metrics" />
         <tab-sales-invoice-net-total v-if="!loading && type === 'TabSalesInvoiceNetTotal'" :values="values" :metrics="metrics" />
+        <tab-sales-invoice-item-unique-item-code v-if="!loading && type === 'TabSalesInvoiceItemUniqueItemCode'" :values="values" :metrics="metrics" />
         <tab-sales-invoice-item-horizontal-bar-chart-by-item-name v-if="!loading && type === 'TabSalesInvoiceItemHorizontalBarChartByItemName'" :values="values" :metrics="metrics" />
         <tab-sales-invoice-item-horizontal-bar-chart-by-item-group v-if="!loading && type === 'TabSalesInvoiceItemHorizontalBarChartByItemGroup'" :values="values" :metrics="metrics" />
         <tab-purchase-invoice-horizontal-bar-chart-by-supplier v-if="!loading && type === 'TabPurchaseInvoiceHorizontalBarChartBySupplier'" :values="values" :metrics="metrics" />
         <pie-sales-invoice-by-status v-if="!loading && type === 'PieSalesInvoiceByStatus'" :values="values" :metrics="metrics" />
         <tab-bin-item-code-wise v-if="!loading && type === 'TabBinItemCodeWise'" :values="values" :metrics="metrics" />
+        <tab-bin-hand-ware-house-wise v-if="!loading && type === 'TabBinHandWareHouseWise'" :values="values" :metrics="metrics" />
+        <tab-lead-by-city-location v-if="!loading && type === 'TabLeadByCityLocation'" :values="values" :metrics="metrics" />
+        <guage-chart v-if="!loading && type === 'GuageChart'" :values="values" :metrics="metrics" />
       </div>
     </div>
   </div>
@@ -51,7 +55,10 @@ import TabSalesInvoiceItemHorizontalBarChartByItemGroup from "../components/TabS
 import TabPurchaseInvoiceHorizontalBarChartBySupplier from "../components/TabPurchaseInvoiceHorizontalBarChartBySupplier";
 import PieSalesInvoiceByStatus from "../components/PieSalesInvoiceByStatus";
 import TabBinItemCodeWise from "../components/TabBinItemCodeWise";
-
+import TabBinHandWareHouseWise from "../components/TabBinHandWareHouseWise";
+import TabLeadByCityLocation from "../components/TabLeadByCityLocation";
+import TabSalesInvoiceItemUniqueItemCode from "../components/TabSalesInvoiceItemUniqueItemCode";
+import GuageChart from "../components/GuageChart";
 
 export default {
   components: {
@@ -65,12 +72,16 @@ export default {
     TabSalesAverageInvoiceAmount,
     TabSalesTotalInvoiceCount,
     TabCustomerCount,
+    TabSalesInvoiceItemUniqueItemCode,
     TabSalesInvoiceItemHorizontalBarChartByItemName,
     TabSalesInvoiceItemHorizontalBarChartByItemGroup,
     TabPurchaseInvoiceHorizontalBarChartBySupplier,
     PieSalesInvoiceByStatus,
     TabSalesInvoiceNetTotal,
-    TabBinItemCodeWise
+    TabBinItemCodeWise,
+    TabBinHandWareHouseWise,
+    TabLeadByCityLocation,
+    GuageChart
   },
   name: "Chart",
   props: {

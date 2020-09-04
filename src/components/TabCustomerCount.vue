@@ -2,7 +2,7 @@
   <div>
     hello from TabCustomerCount 
     </br>
-    <h1>{{this.values[0]["TabCustomer.count"]}}</h1>
+    <h1>{{this.values[0]["TabCustomer.countName"]}}</h1>
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@
       metrics: Array,
     },
     mounted () {
-        console.log("TabSalesAverageInvoiceAmount............",this.values[0]["TabCustomer.count"]);
+        console.log("TabSalesAverageInvoiceAmount............",this.values[0]["TabCustomer.countName"]);
     }
   }
 </script>
