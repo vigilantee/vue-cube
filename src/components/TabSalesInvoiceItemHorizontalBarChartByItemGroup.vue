@@ -20,7 +20,7 @@
             backgroundColor: colour,
             borderColor: colour,
             pointBorderColor: '#2554FF',
-            data:this.values.map(value=>value["TabSaleInvoiceItem.amount"])
+            data:this.values.map(value=>value["TabSalesInvoiceItem.amount"])
           }]
         },
         options: {

@@ -149,41 +149,41 @@ const TabSalesInvoiceNetTotal = {
 }
 const TabSalesInvoiceItemUniqueItemCode = {
     "measures": [
-        "TabSaleInvoiceItem.itemCodeCount"
-    ],
-    "timeDimensions": [
+        "TabSalesInvoiceItem.itemCodeCount"
+      ],
+      "timeDimensions": [
         {
-            "dimension": "TabSaleInvoiceItem.creation"
+          "dimension": "TabSalesInvoiceItem.creation"
         }
-    ],
-    "order": {},
-    "filters": []
+      ],
+      "order": {},
+      "filters": []
 }
 const TabSalesInvoiceItemHorizontalBarChartByItemName = {
-    measures: ["TabSaleInvoiceItem.amount"],
+    measures: ["TabSalesInvoiceItem.amount"],
     timeDimensions: [
         {
-            dimension: "TabSaleInvoiceItem.creation",
+            dimension: "TabSalesInvoiceItem.creation",
         },
     ],
     order: {
-        "TabSaleInvoiceItem.amount": "desc",
+        "TabSalesInvoiceItem.amount": "desc",
     },
-    dimensions: ["TabSaleInvoiceItem.itemName"],
+    dimensions: ["TabSalesInvoiceItem.itemName"],
     filters: [],
     limit: 10,
 }
 const TabSalesInvoiceItemHorizontalBarChartByItemGroup = {
-    measures: ["TabSaleInvoiceItem.amount"],
+    measures: ["TabSalesInvoiceItem.amount"],
     timeDimensions: [
         {
-            dimension: "TabSaleInvoiceItem.creation",
+            dimension: "TabSalesInvoiceItem.creation",
         },
     ],
     order: {
-        "TabSaleInvoiceItem.amount": "desc",
+        "TabSalesInvoiceItem.amount": "desc",
     },
-    dimensions: ["TabSaleInvoiceItem.itemGroup"],
+    dimensions: ["TabSalesInvoiceItem.itemGroup"],
     filters: [],
 }
 const TabPurchaseInvoiceHorizontalBarChartBySupplier = {

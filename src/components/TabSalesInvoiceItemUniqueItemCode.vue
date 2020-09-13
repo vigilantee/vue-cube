@@ -2,7 +2,7 @@
   <div>
     hello from TabSalesInvoiceItemUniqueItemCode 
     </br>
-    <h1>{{this.values[0]["TabSaleInvoiceItem.itemCodeCount"]}}</h1>
+    <h1>{{this.values[0]["TabSalesInvoiceItem.itemCodeCount"]}}</h1>
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@
       metrics: Array,
     },
     mounted () {
-        // console.log("TabSalesAverageInvoiceAmount............",this.values[0]["TabSalesInvoice.AverageInvoiceAmount"]);
+        console.log("TabSalesInvoiceItemUniqueItemCode............",this.values[0]["TabSalesInvoiceItem.itemCodeCount"]);
     }
   }
 </script>
